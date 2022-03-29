@@ -1,6 +1,6 @@
 # Machine Learning at Scale  
 
-## Homework 1: Intro to the Map Reduce Paradigm
+## Homework 1 - Intro to the Map Reduce Paradigm
 This first homework assignment introduces one of the core strategies in distributed processing: divide and conquer. We'll use the simplest of tasks, word counting, to illustrate the difference between a scalable and non-scalable algorithm. You will be working with the text of Alice in Wonderland to put these ideas into practice using Python and Bash scripting. By the end of this week you should be able to:
 
 ... describe the Bias-Variance tradeoff as it applies to Machine Learning.  
