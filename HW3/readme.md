@@ -6,7 +6,7 @@ This will be your first assignment working in Spark. You'll perform Synonym Dete
 
 ... define the terms one-hot encoding, co-occurrance matrix, stripe, inverted index, postings, and basis vocabulary in the context of both synonym detection and document similarity analysis.  
 ... explain the reasoning behind using a word stripe to compare word meanings.  
-... identify what makes set-similarity calculations computationally challenging.
+... identify what makes set-similarity calculations computationally challenging.  
 ... implement stateless algorithms in Spark to build stripes, inverted index and compute similarity metrics.  
 ... identify when it makes sense to take a stripe approach and when to use pairs.  
 ... apply appropriate metrics to assess the performance of your synonym detection algorithm.  
