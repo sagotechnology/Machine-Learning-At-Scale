@@ -1,4 +1,4 @@
-# W261 Machine Learning at Scale  
+# Machine Learning at Scale  
 
 ## Homework 1: Intro to the Map Reduce Paradigm
 This first homework assignment introduces one of the core strategies in distributed processing: divide and conquer. We'll use the simplest of tasks, word counting, to illustrate the difference between a scalable and non-scalable algorithm. You will be working with the text of Alice in Wonderland to put these ideas into practice using Python and Bash scripting. By the end of this week you should be able to:
@@ -32,7 +32,7 @@ This will be your first assignment working in Spark. You'll perform Synonym Dete
 ... identify when it makes sense to take a stripe approach and when to use pairs.  
 ... apply appropriate metrics to assess the performance of your synonym detection algorithm.  
 
-# HW 4 - Supervised Learning at Scale.
+## HW 4 - Supervised Learning at Scale.
 
 In the first three homeworks you became familiar with the Map-Reduce programming paradigm as manifested in the Hadoop Streaming and Spark frameworks. We explored how different data structures and design patterns can help us manage the computational complexity of an algorithm. As part of this process you implemented both a supervised learning alogorithm (Naive Bayes) and an unsupervised learning algorithm (synonym detection via cosine similarity). In both of these tasks parallelization helped us manage calculations involving a large number of features. However a large feature space isn't the only situation that might prompt us to want to parallelize a machine learning algorithm. In the final two assignments we'll look at cases where the iterative nature of an algorithm is the main driver of its computational complexity (and the reason we might want to parallelize it).
 
