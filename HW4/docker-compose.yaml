@@ -1,0 +1,21 @@
+version: '3'
+services:
+  spark:
+    image: jupyter/pyspark-notebook
+    hostname: docker.w261
+    privileged: true
+    user: root
+    environment:
+      - NB_USER=samueljohngomez
+      - CHOWN_HOME=yes
+      - GRANT_SUDO=yes
+      - NB_UID=1001
+      - NB_GID=1002
+    command: bash -c "start.sh jupyter lab --ServerApp.token='' --ServerApp.authenticate_prometheus=False --ServerApp.port=8889"
+    ports:
+      - "8889:8889"
+      - "4040:4040"
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/home/samueljohngomez

@@ -1,0 +1,2777 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{demo6\_workbook}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{wk6 Demo - Supervised Learning \& Gradient
+Descent}\label{wk6-demo---supervised-learning-gradient-descent}
+
+\textbf{\texttt{MIDS\ w261:\ Machine\ Learning\ at\ Scale\ \textbar{}\ UC\ Berkeley\ School\ of\ Information\ \textbar{}\ Summer\ 2018}}
+
+In Supervised Machine Learning we use labeled training data to learn a
+decision function (a.k.a 'model') and make evaluations about how well
+that decision function might perform when applied to new data. Of course
+the biggest factor that will determine the performance of your model is
+the quality of the data you train on. However another key challenge is
+the question of what models to consider \& how to compare their
+performance so that you can choose the best one. Gradient Descent solves
+this challenge for a certain class of functions. By the end of this live
+session you should be able to: * \textbf{... define} the loss function
+for OLS Regression and its gradient. * \textbf{... explain} the
+relationship between model space and parameter space. * \textbf{...
+recognize} convex optimization problems and why they are desirable. *
+\textbf{... describe} the process of Gradient Descent \& how it can be
+parallelized. * \textbf{... contrast} L1 and L2 regularization in terms
+of how they are implemented and how they impact our results.
+
+\textbf{Note}: ...
+
+    \section{Introduction}\label{introduction}
+
+In today's demo, we'll use Linear Regression on a simple example in
+order to explore key topics related to distributed learning of
+parametric models. Broadly speaking, the supervised learning of a
+parametric model can be split into to two components:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Optimization Task (a.k.a. Learning)}: Given a strategy for
+  making a prediction, return the specific parameters which guarantee
+  the optimal prediction.\\
+\item
+  \textbf{Prediction Task}: Given an input vector, return an output
+  value.
+\end{enumerate}
+
+\begin{quote}
+\textbf{DISCUSSION QUESTION:} \emph{In the case of Linear Regression,
+which of the two tasks above are we most likely to want to parallelize?
+Why?}
+\end{quote}
+
+OK, Let's start with a quick review of some notation you will have seen
+in w207.
+
+\subsection{Notation Review}\label{notation-review}
+
+Linear Regression tackles the \textbf{prediction task} by assuming that
+we can compute our output variable, \(y\), using a linear combination of
+our input variables. That is we assume there exist a set of
+\textbf{weights}, \(\mathbf{w}\), and a \textbf{bias} term,
+\(\mathbf{b}\), such that for any input
+\(\mathbf{x}_j \in \mathbb{R}^m\):
+
+\begin{equation}\tag{1.1}
+y_j = \displaystyle\sum_{i=1}^{m}{w_i\cdot x_{ji} + b}
+\end{equation}
+
+In vector notation, this can be written:
+
+\begin{equation}
+y_j = \displaystyle{\mathbf{w}^T\mathbf{x}_{j} + b}
+\end{equation}
+
+Of course, this perfect linear relationship never holds over a whole
+dataset \textbf{\(X\)}, so Linear Regression attempts to fit (i.e.
+\textbf{learn}) the best line (in 1 dimension) or hyperplane (in 2 or
+more dimensions) to the data. In the case of \textbf{ordinary least
+squares (OLS)} linear regression, best fit is defined as minimizing the
+Euclidean distances of each point in the dataset to the line or
+hyperplane. These distances are often referred to as \textbf{residuals}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+        \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{residual.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{400}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{200}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}1}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    The calculation of the average residual (a.k.a.\textbf{mean squared
+error, MSE}) over our test or training set allows us to measure how good
+a fit we've achieved. We call this function the \textbf{loss} or
+\textbf{objective} function because our goal in the \textbf{optimization
+task} is to find the parameters which minimize it.
+
+\begin{equation}\tag{1.2}
+f(\mathbf{w}, b) = \frac{1}{n}\sum_{j=1}^{n}\left[ (\mathbf{w}^T\mathbf{x}_j + b) - y_i\right]^2,\\
+n = \left|X_{\text{train}}\right|
+\end{equation}
+
+For convenience, we sometimes choose to think of the bias \(b\) as
+weight \(w_{m+1}\). To operationalize this, we'll \emph{augment} our
+input vectors by setting \(x_{m+1}=1\). This gives us a simpler way to
+write the loss function: \[
+\mathbf{x}' :=
+\begin{bmatrix}
+\mathbf{x}\\
+1
+\end{bmatrix},\quad
+\boldsymbol{\theta} :=
+\begin{bmatrix}
+\mathbf{w}\\
+b
+\end{bmatrix}
+\]
+
+\begin{equation}\tag{1.3}
+f(\boldsymbol{\theta}) = \frac{1}{n}\sum_{i=1}^{n}\left[ \boldsymbol{\theta}^T\cdot\mathbf{x}'_i - y_i\right]^2
+\end{equation}
+
+Machine Learning packages like \texttt{sklearn} and \texttt{tensorflow}
+take this one step further by representing the entire training set in a
+single matrix were each row is an input vector and each column
+represents a feature: \[
+\text{X}' =
+\begin{bmatrix}
+\mathbf{x'}_1^{\text{T}}\\
+\vdots\\
+\mathbf{x'}_n^{\text{T}}
+\end{bmatrix},\quad
+\mathbf{y} = 
+\begin{bmatrix}
+y_1\\
+\vdots\\
+y_n
+\end{bmatrix}
+\]
+
+\begin{equation}\tag{1.4}
+f(\boldsymbol{\theta}) = \frac{1}{n}\|\text{X}'\cdot \boldsymbol{\theta} - \mathbf{y}\|_2^2
+\end{equation}
+
+As you see here, it is customary to write loss as a function of the
+parameters \(\theta\) (or equivalently \(\mathbf{w}\) and \(b\)).
+However it is important to note that the MSE loss depends on both the
+parameters/weights \emph{and} the data \(X\), we'll talk more about that
+later.
+
+\textbf{OLS Assumptions}
+
+\begin{itemize}
+\tightlist
+\item
+  Residuals are homoscedastic - they have constant variance\\
+\item
+  Residuals are normaly distributed
+\item
+  No multicolinearity - features are not correlated
+\end{itemize}
+
+    \begin{quote}
+\textbf{DISCUSSION QUESTIONS:} * \emph{In equation 1.1 what do
+\(x_{ji}\), \(w_i\), and \(\mathbf{w}\) each represent?}\\
+* \emph{In the asynch's version of the loss function \(\alpha\) and
+\(\beta\) appear as parameters... what do they represent? How are they
+captured in equations 1.2 and 1.3 respectively?} * \emph{If we were
+computing loss over a really large data set what might be the arguments
+in favor / against using the augmented version of the loss function
+calculation?}
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{INSTRUCTOR TALKING POINTS}\\
+* \emph{In equation 1.1 what do \(x_{ji}\), \(w_i\), and \(\mathbf{w}\)
+each represent?} \textgreater{} \(x_{ij}\) is the \(i^{th}\) variable in
+the \(j^{th}\) data example. \(w_i\) is the \(i^{th}\) weight
+(parameter), and \(\mathbf{w}\) is the entire weight (parameter) vector.
+* \emph{In the asynch's version of the loss function \(\alpha\) and
+\(\beta\) appear as parameters... what do they represent? How are they
+captured in equations 1.2 and 1.3 respectively?} \textgreater{}
+\(\alpha\) represents the weights and \(\beta\) the bias, in equation
+1.2 these are \(w\) and \(b\), in equation 1.3 we append \(b\) to the
+weights vecotor to get an augmented weight vector \(\theta\) which is
+just another way of representing \(\alpha\) and \(\beta\). NOTE -\/- the
+greek letter \(\alpha\) is also often (and confusingly) used to
+represent the learning rate in gradient descent - we'll try to use
+\(\eta\) "eta" instead to avoid confusion, but its something to keep an
+eye out for. * \emph{If we were computing loss over a really large data
+set what might be the arguments in favor / against using the augmented
+version of the loss function calculation?} \textgreater{} Having to
+augment the entire data set prior to learning adds an additional pass
+over the data. In addition, it doubles the storage required. Instead, we
+can "augment" each example as we encounter it.
+
+    \subsection{Notebook Set Up}\label{notebook-set-up}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} general imports}
+         \PY{k+kn}{import} \PY{n+nn}{sys}
+         \PY{k+kn}{import} \PY{n+nn}{csv}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         
+         \PY{c+c1}{\PYZsh{} magic commands}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{o}{\PYZpc{}}\PY{k}{reload\PYZus{}ext} autoreload
+         \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} import helper modules}
+         \PY{k+kn}{import} \PY{n+nn}{helperFunc}
+         \PY{k+kn}{import} \PY{n+nn}{linRegFunc}
+         
+         \PY{c+c1}{\PYZsh{} OPTIONAL \PYZhy{} uncomment to print helper file docstrings}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{helperFunc}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}doc\PYZus{}\PYZus{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(linRegFunc.\PYZus{}\PYZus{}doc\PYZus{}\PYZus{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+This file contains helper functions for generating, transforming
+and plotting 2 dimensional data to use in testing \& for ML demos.
+
+Avaliable functions include:
+    augment(X)
+    plot2DModels(data, models=[], names = [], title=None)
+    plotErrorSurface(data, weight\_grid, loss, title=None)
+
+
+
+    \end{Verbatim}
+
+    \section{A Small Example}\label{a-small-example}
+
+We'll start with a small example of 5 2-D points:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{writefile} fivePoints.csv
+          1,2
+          3,4
+          5,5
+          4,3
+          2,3
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Overwriting fivePoints.csv
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{c+c1}{\PYZsh{} load data from file}
+          \PY{n}{points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fivePoints.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Here's what they look like next to a the simplest possible linear model:
+\$ y = x\$
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{c+c1}{\PYZsh{} easy plotting with a helper function}
+          \PY{n}{helperFunc}\PY{o}{.}\PY{n}{plot2DModels}\PY{p}{(}\PY{n}{points}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Small Example}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Looks reasonable, but its hard to gauge exactly how good a fit we have
+just by looking.
+
+\begin{quote}
+\textbf{A TASK FOR YOU:} Fill in the calculations below to compute the
+"Training Loss" for our data. These are easy and intuitive calculations
+that you will know from long-ago math classes... but instead of relying
+on your visual intuition, challenge yourself to think through these
+numbers in the context of our matrix equation for loss. Here it is again
+for your reference:
+
+\begin{equation}\tag{1.3}
+f(\boldsymbol{\theta}) = \frac{1}{n}\sum_{i=1}^{n}\left[ \boldsymbol{\theta}\cdot\mathbf{x}'_i - y_i\right]^2
+\end{equation}
+\end{quote}
+
+The parameter vector \(\theta\) for our initial line \(y=x\) is: \$
+
+\begin{bmatrix} ? \ \quad ? \ \end{bmatrix}
+
+\$
+
+The (augmented) data points \(x_j\) are: \$
+
+\begin{bmatrix} ? \\ ? \\ \end{bmatrix}
+
+\$ \$
+
+\begin{bmatrix} ? \\ ? \\ \end{bmatrix}
+
+\$ \$
+
+\begin{bmatrix} ? \\ ? \\ \end{bmatrix}
+
+\$ \$
+
+\begin{bmatrix} ? \\ ? \\ \end{bmatrix}
+
+\$ \$
+
+\begin{bmatrix} ? \\ ? \\ \end{bmatrix}
+
+\$
+
+Our loss calculations will be:
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+\begin{minipage}[b]{0.07\columnwidth}\centering\strut
+\(i\)\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\centering\strut
+\(y_i\)\strut
+\end{minipage} & \begin{minipage}[b]{0.23\columnwidth}\centering\strut
+\(\boldsymbol{\theta}\cdot\mathbf{x}'_i\)\strut
+\end{minipage} & \begin{minipage}[b]{0.33\columnwidth}\centering\strut
+\(\left[ \boldsymbol{\theta}\cdot\mathbf{x}'_i - y_i\right]^2\)\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\centering\strut
+true y\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\centering\strut
+predicted y\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\centering\strut
+squared residual\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\centering\strut
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\centering\strut
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\centering\strut
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\centering\strut
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\centering\strut
+\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+The training loss \(f(\boldsymbol{\theta})\) for this data and these
+weights is: \_\_\_\_\_\_\_
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{small\PYZus{}example\PYZus{}loss.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}10}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.jpeg}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Run this cell to confirm your Hand Calculations}
+        \PY{n}{X} \PY{o}{=} \PY{n}{helperFunc}\PY{o}{.}\PY{n}{augment}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{n}{points}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loss:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linRegFunc}\PY{o}{.}\PY{n}{OLSLoss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loss: 0.8
+
+    \end{Verbatim}
+
+    \begin{quote}
+\textbf{DISCUSSION QUESTIONS:} * \emph{What parts of this computation
+could be parallelized? What, if any, aggregation has to happen at the
+end?} * \emph{What key-value format, partitioning, sorting would help?
+Could you use a combiner?} * \emph{In addition to the data stream, what
+other information would your map or reduce tasks need access to?}
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{INSTRUCTOR TALKING POINTS}\\
+* \emph{What parts of this computation could be parallelized? What, if
+any, aggregation has to happen at the end?} \textgreater{} Everything to
+the right of the summation can be calculated on a per row basis. The
+aggregation (summation) as well as the final division has to be dne at
+the end.\\
+* \emph{What key-value format, partitioning, sorting would help? Could
+you use a combiner?} \textgreater{} No key or special partitioning is
+needed as there is no grouping required. A combiner can be used to sum
+local results. Remember to pass the number of rows in the payload to be
+able to take the mean at the end.\\
+* \emph{In addition to the data stream, what other information would
+your map or reduce tasks need access to?} \textgreater{} number of rows.
+see above.
+
+    \subsection{Demo: Random Parameter
+Search.}\label{demo-random-parameter-search.}
+
+    Ok, so we know the model looks ok and we know its loss is \(0.8\) but is
+that any good? A naive approach to "learning" a Linear Model might be to
+randomly generate a few more models and then pick the model with the
+lowest loss. Let's try it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{import} \PY{n+nn}{helperFunc}\PY{o}{,} \PY{n+nn}{linRegFunc}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Demo Parameters \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} }
+        \PY{c+c1}{\PYZsh{} TRY CHANGING THESE \PYZam{} SEE HOW IT AFFECTS OUR SEARCH}
+        \PY{n}{NUM\PYZus{}MODELS} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{PARAM\PYZus{}RANGE} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Random Search Demo \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} Load \PYZam{} pre\PYZhy{}process data}
+        \PY{n}{points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fivePoints.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{helperFunc}\PY{o}{.}\PY{n}{augment}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{n}{points}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} \PYZdq{}Training\PYZdq{}}
+        \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+        \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{INIT \PYZhy{} Loss: 0.8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{best} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{NUM\PYZus{}MODELS}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} initialize a random weight vector w/ values in specified range}
+            \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{PARAM\PYZus{}RANGE}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{PARAM\PYZus{}RANGE}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} compute loss \PYZam{} store for plotting}
+            \PY{n}{loss} \PY{o}{=} \PY{n}{linRegFunc}\PY{o}{.}\PY{n}{OLSLoss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{W}\PY{p}{)}
+            \PY{n}{models}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{W}\PY{p}{)}
+            \PY{n}{names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZhy{} Loss: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{idx}\PY{p}{,} \PY{n}{loss}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} track best model}
+            \PY{k}{if} \PY{n}{loss} \PY{o}{\PYZlt{}} \PY{n}{best}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                \PY{n}{best}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{loss}
+                \PY{n}{best}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{W}
+                
+        \PY{c+c1}{\PYZsh{} Display Results}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best Random Model: }\PY{l+s+si}{\PYZob{}best[\PYZsq{}W\PYZsq{}]\PYZcb{}}\PY{l+s+s2}{, Loss: }\PY{l+s+si}{\PYZob{}best[\PYZsq{}loss\PYZsq{}]\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{helperFunc}\PY{o}{.}\PY{n}{plot2DModels}\PY{p}{(}\PY{n}{points}\PY{p}{,} \PY{n}{models}\PY{p}{,} \PY{n}{names}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A Random Approach.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Best Random Model: [1, 0], Loss: 0.8
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    So, that was pretty poor. One idea would be to run a lot more
+iterations.
+
+\begin{quote}
+\textbf{DISCUSSION QUESTION:} * \emph{To what extent could
+parallelization help us redeem this approach? What exactly would you
+parallelize?}
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{INSTRUCTOR TALKING POINTS} * \emph{To what extent could
+parallelization help us redeem this approach? What exactly would you
+parallelize?} \textgreater{} While parallelization could help us train a
+lot more models in the same amount of time, we'd have no real guarantee
+that we'd get better results in exchange for our efforts because of the
+'randomness' of what models we try.
+
+    \subsection{Demo: Systematic Brute
+Force.}\label{demo-systematic-brute-force.}
+
+    For obvious reasons a more systematic approach is desirable. Instead of
+randomly guessing, let's use what we know to search an appropriate
+section of the the model space.
+
+We can tell from the data that the linear model should probably have a
+fairly shallow positive slope and a positive intercept between 0 and 2.
+So lets initialize every possible combination of weights in that range
+up to a granularity of, say \(0.2\), and compute the loss for each one.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{import} \PY{n+nn}{helperFunc}\PY{o}{,} \PY{n+nn}{linRegFunc}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Demo Parameters \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} }
+         \PY{c+c1}{\PYZsh{} TRY CHANGING THESE \PYZam{} SEE HOW IT AFFECTS OUR SEARCH}
+         \PY{n}{W0\PYZus{}MIN} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{W0\PYZus{}MAX} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{W0\PYZus{}STEP} \PY{o}{=} \PY{l+m+mf}{0.2}
+         
+         \PY{n}{W1\PYZus{}MIN} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{W1\PYZus{}MAX} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{W1\PYZus{}STEP} \PY{o}{=} \PY{l+m+mf}{0.2}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Grid Search Demo \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} }
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Load \PYZam{} Pre\PYZhy{}process Data}
+         \PY{n}{points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fivePoints.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{helperFunc}\PY{o}{.}\PY{n}{augment}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{points}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} \PYZdq{}Training\PYZdq{} }
+         \PY{c+c1}{\PYZsh{} create a model for each point in our grid}
+         \PY{n}{grid} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mgrid}\PY{p}{[}\PY{n}{W0\PYZus{}MIN}\PY{p}{:}\PY{n}{W0\PYZus{}MAX}\PY{p}{:}\PY{n}{W0\PYZus{}STEP}\PY{p}{,}\PY{n}{W1\PYZus{}MIN}\PY{p}{:}\PY{n}{W1\PYZus{}MAX}\PY{p}{:}\PY{n}{W1\PYZus{}STEP}\PY{p}{]}
+         \PY{n}{size} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{models} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{size}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         \PY{c+c1}{\PYZsh{} compute loss for each model}
+         \PY{n}{loss} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{W} \PY{o+ow}{in} \PY{n}{models}\PY{p}{:}
+             \PY{n}{loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{linRegFunc}\PY{o}{.}\PY{n}{OLSLoss}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{W}\PY{p}{)}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Display Results}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Searched }\PY{l+s+si}{\PYZob{}size\PYZcb{}}\PY{l+s+s2}{ models...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best model: }\PY{l+s+si}{\PYZob{}models[np.argmin(loss)]\PYZcb{}}\PY{l+s+s2}{, Loss: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{min(loss)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{helperFunc}\PY{o}{.}\PY{n}{plotErrorSurface}\PY{p}{(}\PY{n}{points}\PY{p}{,}\PY{n}{models}\PY{p}{,}\PY{n}{loss}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Searched 100 models{\ldots}
+Best model: [0.6 1.6], Loss: 0.31999999999999984
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\textbf{DISCUSSION QUESTIONS:} * \emph{When we think about scaling up,
+is this still a better approach than guessing? How could it be
+parallelized?} * \emph{What would change about this approach if we had
+higher dimension data?} * \emph{In practice, when we're training Linear
+Models why don't we just look at the error surface and identify the
+lowest point?} * \emph{What about if we're training other kinds of
+models?}
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{INSTRUCTOR TALKING POINTS}\\
+* \emph{When we think about scaling up, is this still a better approach
+than guessing? How could it be parallelized?} \textgreater{} Yes, we can
+at least methodically and incrementally improve the solution. The same
+parralellization methods still apply. * \emph{What would change about
+this approach if we had higher dimension data?} \textgreater{} With more
+and more dimensions there would be an exponential number of models to
+search even a small grid. * \emph{In practice, when we're training
+Linear Models why don't we just look at the error surface and identify
+the lowest point?} \textgreater{} We do not have access to the error
+surface until we've computed the loss for every possible comnination of
+parameters. Doing so is computaionally challenging. There are better
+methods at arriving at the optimal solution.
+
+    \section{Parameter Space, Gradients, and
+Convexity}\label{parameter-space-gradients-and-convexity}
+
+As suggested by the systematic search demo, when we train parametric
+models we tend to switch back and forth between two different ways of
+visualizing our goal.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+         \PY{n}{HTML}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}img src=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{./GD\PYZus{}gif/Gradient\PYZus{}Descent.gif}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  When we look at a model next to our data represented in the Problem
+  Domain Space, it is natural to think about loss as a measure of
+  \emph{\textbf{how far off the data are from our model}}. In other
+  words, this visual suggests loss is a function of the training data
+  \(X\).
+\item
+  By contrast, looking at an error surface plotted in Model Parameter
+  Space, we intuitively see loss as an indicator of \emph{\textbf{how
+  far off the current model is from the optimal model}}. In other words,
+  this view helps us think of loss as a function of the parameters
+  \(\theta\).
+\end{itemize}
+
+Of course in one sense, this distinction is just a matter of sematics.
+As we saw in equations 1.2, 1.3 and 1.4, MSE loss depends on \emph{both}
+the data and the parameters. However, in the context of 'inventing' ways
+to train a model, this distinction is a useful one. If we think of the
+data as fixed and focus on how loss varies \emph{with respect to the
+parameters}, then we can take advantage of a little theory to speed up
+our search for the optimal parameters.
+
+    \textbf{Optimization Theory}
+
+Calculus gives us the simple solution to optimizing a real function. The
+\textbf{First Order Conditions} (a.k.a. 'first derivative rule') says
+that the maximum or minimum of an unconstrained function must occur at a
+point where the first derivative = 0. In higher dimensions we extend
+this rule to talk about a \textbf{gradient} vector of partial
+derivatives which all must equal 0.
+
+When the first order partial derivatives are equal to zero, then we know
+we are at a local maximum or minimum of the real function. But which one
+is it? In order to tell, we must take the second derivatives of the real
+function. If the second derivatives are positive at that point, then we
+know we are at a minimum. If the second derivatives are negative, then
+we know we are at a maximum. These are the \textbf{second order
+conditions.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimization.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{250}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}41}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \textbf{Convex Optimization} is the lucky case where we know that the
+second derivatives never change sign. There are lots of complicated loss
+functions for which we can't easily visualize the error surface but for
+which we \emph{can} prove mathematically that this 2nd order condition
+is met. If this is the case, then we can think of the suface as
+\emph{always curving up} or \emph{always curving down} which guarantees
+that any minimum we reach will be an absolute minimum.
+
+    \begin{quote}
+\textbf{DSICUSSION QUESTIONS:} * \emph{In the case of Linear Regression
+performed on data \(X \in \mathbb{R}^m\), how many dimensions does the
+gradient vector have? What do each of the values in this vector
+represent visually?} * \emph{If we are systematically searching the
+parameter space for a lowest point, why might it be useful to know that
+our loss function is convex?} * \emph{In general (i.e. beyond Linear
+Regression) if finding the ideal parameters \(\theta\), is as simple as
+solving the equation \(f'(\theta)=0\), why don't we always train our
+models by solving that equation?}
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{INSTRUCTOR TALKING POINTS} * \emph{In the case of Linear
+Regression performed on data \(X \in \mathbb{R}^m\), how many dimensions
+does the gradient vector have? What do each of the values in this vector
+represent visually?} \textgreater{} There are \(m\) dimentions each of
+which can be thought of as an axis - it is difficult to visualize when
+\(m > 3\) * \emph{If we are systematically searching the parameter space
+for a lowest point, why might it be useful to know that our loss
+function is convex?} \textgreater{} If our loss function was not convex,
+we might get stuck in a local minimum before finding the optimal
+solution. * \emph{In general (i.e. beyond Linear Regression) if finding
+the ideal parameters \(\theta\), is as simple as solving the equation
+\(f'(\theta)=0\), why don't we always train our models by solving that
+equation?} \textgreater{} Not all functioins are diferentiable. In
+addition, it becomes computationaly difficult in high dimensional spaces
+- specifically, it is difficult to invert large matrices.
+
+    \subsection{Demo: Gradient Descent}\label{demo-gradient-descent}
+
+    To take advantage of these lessons from Optimization Theory, we'll start
+by taking the derivative of the loss function with respect to the
+parameters \(\boldsymbol{\theta}\). Recall the matrix formulation of our
+loss function:
+
+\begin{equation}\tag{1.3}
+f(\boldsymbol{\theta}) = \frac{1}{n}\sum_{i=1}^{n}\left[ \boldsymbol{\theta}\cdot\mathbf{x}'_i - y_i\right]^2
+\end{equation}
+
+We can apply the sum and chain derivation rules to compute the gradient:
+
+\begin{equation}\tag{3.1}
+\nabla_{\boldsymbol{\theta}} f(\boldsymbol{\theta}) = \frac{2}{n}\,\sum_{i=1}^{n}\left[ \boldsymbol{\theta}\cdot\mathbf{x}'_i - y_i\right] \cdot \mathbf{x}'
+\end{equation}
+
+We \emph{could} now set this equation equal to \(0\) and then solve for
+\(\boldsymbol{\theta}\)... but it turns out that this \textbf{closed
+form solution} can be computationally challenging in higher dimensions.
+It also turns out that a simple approximation technique will work almost
+as well.
+
+The strategy of \textbf{Gradient Descent} is to start somewhere random
+in the Model Parameter Space and then move down the error surface to
+find a minimum point with the optimal parameters for our training data.
+Its ingeniousness is that we can do this without actually knowing the
+full shape of the error surface. Think of it like walking down a hill
+while blindfolded. You test each direction to see which way is down,
+then take a little step in that direction and repeat the process until
+you can't feel any more 'down' to go. The 'size' of our steps is
+controled by a hyperparameter, \(\alpha\), the \textbf{learning rate}.
+The whole process can be summarized in 3 steps: 1. Initialize the
+parameters \(\theta\). 2. Compute the gradient
+\(\nabla_{\boldsymbol{\theta}} f(\boldsymbol{\theta})\). 3. Update the
+parameters: \$\theta\emph{\{\text{new}\} = \theta}\{\text{old}\} -
+\alpha \cdot \nabla\_\{\boldsymbol{\theta}\} f(\boldsymbol{\theta}) \$
+
+We repeat these steps until we reach a stopping criteria.
+
+    \begin{quote}
+\textbf{A TASK FOR YOU:} Compute one Gradent Descent update step for the
+small example from Part 2. Recall that our initial parameters were:
+\[ \boldsymbol{\theta} = \begin{bmatrix} 1 \ \quad 0 \ \end{bmatrix}\]\\
+For your convenience the augmented input data vectors are already
+entered in the table below:
+\end{quote}
+
+Hand Calculations:
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+\begin{minipage}[b]{0.09\columnwidth}\centering\strut
+\(x_j '\)\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\centering\strut
+\(y_j\)\strut
+\end{minipage} & \begin{minipage}[b]{0.23\columnwidth}\centering\strut
+\(\boldsymbol{\theta}\cdot\mathbf{x}'_j\)\strut
+\end{minipage} & \begin{minipage}[b]{0.33\columnwidth}\centering\strut
+\(\left[ \boldsymbol{\theta}\cdot\mathbf{x}'_j - y_j\right]\cdot\mathbf{x}'_j\)\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.09\columnwidth}\centering\strut
+input\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\centering\strut
+true y\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\centering\strut
+predicted y\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\centering\strut
+gradient component for \(x_j\)\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbar{} \$
+
+\begin{bmatrix} 1 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 2 \textbar{} \textbar{} \textbar{} \textbar{} \$
+
+\begin{bmatrix} 2 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 3 \textbar{} \textbar{} \textbar{} \textbar{} \$
+
+\begin{bmatrix} 3 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 4 \textbar{} \textbar{} \textbar{} \textbar{} \$
+
+\begin{bmatrix} 4 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 3 \textbar{} \textbar{} \textbar{} \textbar{} \$
+
+\begin{bmatrix} 5 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 5 \textbar{} \textbar{} \textbar{}
+
+    The gradient \(\nabla_{\boldsymbol{\theta}} f(\boldsymbol{\theta})\) for
+this data and these weights is: {[}-0.8, -0.8{]}
+
+If \(\alpha = 0.1\) the update for this step will be: {[}-0.08 -0.08{]}
+
+The new parameters will be \(\theta_{\text{new}}=\) {[}1.08, 0.08{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{small\PYZus{}example\PYZus{}gradient.jpeg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}12}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.jpeg}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{quote}
+\textbf{DISCUSSION QUESTIONS:}\\
+* \emph{How would you go about parallelizing this calculation? What
+would the mapper do, what would the reducers do? What key-value
+structure, sorting, partitioning, etc would you use?} * \emph{How do the
+computational demands of performing GD compare to the task of computing
+the loss?}
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{INSTRUCTOR TALKING POINTS} * \emph{How would you go about
+parallelizing this calculation? What would the mapper do, what would the
+reducers do? What key-value structure, sorting, partitioning, etc would
+you use?} \textgreater{} For each row of data the mappers would output
+the result of the equation to the right of the summand. Since we are not
+grouping anything, no key is needed, and no particular partitioning
+scheme is necessary. If using combiners, one would need to ensure that
+the number of rows is passed along in the payload to the reducers. The
+reducers would sum the incomning values, and a final reducer would
+compute the mean. * \emph{How do the computational demands of performing
+GD compare to the task of computing the loss?} \textgreater{} Computing
+the loss is a component of computing the gradient. In term of algorithm
+complexity they are almost the same.
+
+    \textbf{Run this demo to confirm your hand calculations \& examine a few
+more GD steps.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{helperFunc}\PY{o}{,} \PY{n+nn}{linRegFunc}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Demo Parameters \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} }
+         \PY{c+c1}{\PYZsh{} TRY CHANGING THESE \PYZam{} SEE HOW IT AFFECTS OUR SEARCH}
+         \PY{n}{N\PYZus{}STEPS} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{LEARNING\PYZus{}RATE} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{ORIGINAL\PYZus{}MODEL} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{SHOW\PYZus{}CONTOURS} \PY{o}{=} \PY{k+kc}{True}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Gradient Update Demo \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} }
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Load \PYZam{} Pre\PYZhy{}process Data}
+         \PY{n}{points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fivePoints.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{helperFunc}\PY{o}{.}\PY{n}{augment}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{points}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Perform GD Update \PYZam{} save intermediate model performance}
+         \PY{n}{models}\PY{p}{,} \PY{n}{loss} \PY{o}{=} \PY{n}{linRegFunc}\PY{o}{.}\PY{n}{GDUpdate}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{N\PYZus{}STEPS}\PY{p}{,}
+                                            \PY{n}{ORIGINAL\PYZus{}MODEL}\PY{p}{,} 
+                                            \PY{n}{LEARNING\PYZus{}RATE}\PY{p}{,} 
+                                            \PY{n}{verbose} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Display Results}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Searched }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{len(models)\PYZcb{} models...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best model: }\PY{l+s+si}{\PYZob{}models[np.argmin(loss)]\PYZcb{}}\PY{l+s+s2}{, Loss: }\PY{l+s+si}{\PYZob{}loss[np.argmin(loss)]\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model 0: [1.00, 0.00]
+Loss: 0.8
+     >>> gradient: [-0.8 -0.8]
+     >>> update: [-0.08 -0.08]
+Model 1: [1.08, 0.08]
+Loss: 0.7872
+     >>> gradient: [ 1.44 -0.16]
+     >>> update: [ 0.144 -0.016]
+Model 2: [0.94, 0.10]
+Loss: 0.7918080000000005
+     >>> gradient: [-1.632 -0.992]
+     >>> update: [-0.1632 -0.0992]
+Model 3: [1.10, 0.20]
+Loss: 0.82701312
+     >>> gradient: [2.5536 0.1856]
+     >>> update: [0.25536 0.01856]
+Model 4: [0.84, 0.18]
+Loss: 0.9175584768000005
+     >>> gradient: [-3.17568 -1.38368]
+     >>> update: [-0.317568 -0.138368]
+Model 5: [1.16, 0.32]
+Loss: 1.1097440747520002
+
+Searched 6 models{\ldots}
+Best model: [1.08 0.08], Loss: 0.7872
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{linRegFunc}\PY{o}{.}\PY{n}{plotGDProgress}\PY{p}{(}\PY{n}{points}\PY{p}{,} \PY{n}{models}\PY{p}{,} \PY{n}{loss}\PY{p}{,}
+                                   \PY{n}{show\PYZus{}contours} \PY{o}{=} \PY{n}{SHOW\PYZus{}CONTOURS}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\textbf{DISCUSSION QUESTIONS:}\\
+* \emph{Look closely at the loss for each model, what problem do you
+notice?} * \emph{Use the Model Parameter Space view to explain why this
+problem might be occurring.} \textbf{HINT:} Try
+\texttt{SHOW\_CONTOURS\ =\ True}. \emph{Based upon your insights,
+propose a solution to this problem.} * \emph{When performing GD 'in the
+wild' will we be able to visualize the error surface (eg. using contour
+lines, heatmaps or 3D plots)?}
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{INSTRUCTOR TALKING POINTS} * \emph{Look closely at the loss for
+each model, what problem do you notice?} \textgreater{} The loss is
+growing * \emph{Use the Model Parameter Space view to explain why this
+problem might be occurring.} \textbf{HINT:} Try
+\texttt{SHOW\_CONTOURS\ =\ True}. \emph{Based upon your insights,
+propose a solution to this problem.} \textgreater{} We could reduce the
+learning rate to prevent the parameter updates from being too large. We
+may also consider increasing the number of iterations. * \emph{When
+performing GD 'in the wild' will we be able to visualize the error
+surface (eg. using contour lines, heatmaps or 3D plots)?} \textgreater{}
+We would not be able to visualize anything beyond 3 dimensions.
+
+    \subsection{Demo : Stochastic Gradient
+Descent}\label{demo-stochastic-gradient-descent}
+
+In Full GD we do a descent step only after the calculation of the
+gradient over the whole set of data. In this case the gradient is
+precise and gives the best possible direction. But it can require quite
+a lot of time if we have huge amounts of data.
+
+In practice we can get faster convergence if we calculate the gradient
+not over the whole set of data but over the small (size of \(B\))
+\textbf{batch} of it.
+
+\begin{equation}\tag{3.2}
+\nabla f(\boldsymbol{\theta}) \approx \nabla_{\text{batch}\,\,} f(\boldsymbol{\theta}) = \frac{2}{n}\sum_{i=1}^{B}\left(\mathbf{x}'_{a_i}\cdot \boldsymbol{\theta} - y_{a_i}\right)\cdot \mathbf{x}'_{a_i}
+\end{equation}
+
+where \(a_i\) is an array of indices of objects which are in this batch.
+Common approach here that you should use is to shuffle samples randomly
+and then iterate over them with batches.
+
+So with this batch approach we get an approximation of the real gradient
+in point \(\boldsymbol{\theta}\). This approximation is very cheap and
+fast to compute (usually \(B\) is not too big \(-\) from 32 to 256).
+After obtaining this gradient we do a descent step in this approximate
+direction and proceed to the next stage of batch descent.
+
+\begin{quote}
+\textbf{A TASK FOR YOU:} Perform 5 update steps of Stochastic Gradient
+Descent with batchsize = \(1\) on our small data set. Recall that our
+initial parameters were:
+\[ \boldsymbol{\theta} = \begin{bmatrix} 1 \ \quad 0 \ \end{bmatrix}\]\\
+... and we used a learning rate of \(\boldsymbol{\eta} = 0.1\)
+\end{quote}
+
+Hand Calculations:
+
+\begin{longtable}[]{@{}cccccc@{}}
+\toprule
+\begin{minipage}[b]{0.06\columnwidth}\centering\strut
+\(x_j '\)\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering\strut
+\(y_j\)\strut
+\end{minipage} & \begin{minipage}[b]{0.17\columnwidth}\centering\strut
+\(\boldsymbol{\theta}\cdot\mathbf{x}'_j\)\strut
+\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\centering\strut
+\(\frac{2}{n}\left[ \boldsymbol{\theta}\cdot\mathbf{x}'_j - y_j\right]\cdot\mathbf{x}'_j\)\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\centering\strut
+\(\eta \nabla_{\boldsymbol{\theta}} f\)\strut
+\end{minipage} & \begin{minipage}[b]{0.13\columnwidth}\centering\strut
+\$\boldsymbol(\theta) - \eta \nabla\_\{\boldsymbol{\theta}\} f \$\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.06\columnwidth}\centering\strut
+input\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+true y\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\centering\strut
+predicted y\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+gradient for this 'batch'\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\centering\strut
+update\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\centering\strut
+new parameters\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbar{} \$
+
+\begin{bmatrix} 1 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 2 \textbar{} \textbar{} \textbar{} \textbar{} \textbar{}
+\textbar{} \$
+
+\begin{bmatrix} 3 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 4 \textbar{} \textbar{} \textbar{} \textbar{} \textbar{}
+\textbar{} \$
+
+\begin{bmatrix} 5 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 5 \textbar{} \textbar{} \textbar{} \textbar{} \textbar{}
+\textbar{} \$
+
+\begin{bmatrix} 4 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 3 \textbar{} \textbar{} \textbar{} \textbar{} \textbar{}
+\textbar{} \$
+
+\begin{bmatrix} 2 \\ 1 \\ \end{bmatrix}
+
+\$ \textbar{} 3 \textbar{} \textbar{} \textbar{} \textbar{} \textbar{}
+
+    \begin{quote}
+\textbf{DISCUSSION QUESTIONS:}\\
+* \emph{How does this result compare to our result from the hand
+calculations in the last section? What implications does this have for
+our quest to find the optimal paramters?} * \emph{How will parallelizing
+Stoichastic Gradient Descent be similar/different to parallelizing
+regular GD?}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{demo6\PYZhy{}SGD.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}40}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{INSTRUCTOR TALKING POINTS} * \emph{How does this result compare
+to our result from the hand calculations in the last section? What
+implications does this have for our quest to find the optimal
+paramters?} \textgreater{} Although the first few individual updates
+seem to go in odd directions by then end of one pass through the data
+we've got a much better model than the equivalent model after 1 GD step
+over the full dataset. This suggests that trainging via SGD will require
+fewer passes over the data. * \emph{How will parallelizing Stochastic
+Gradient Descent be similar/different to parallelizing regular GD?}
+\textgreater{} With SGD, each data point produces a new parameter update
+for use in the subsequent computation of the next data point. We can see
+that SGD is by its nature a sequential algorithm, and paralellizing it
+is a challenge in a map reduce framework.
+
+\begin{quote}
+\textbf{For more info, here are a few of rabbit holes:} 1.
+https://arxiv.org/pdf/1707.00424.pdf\\
+2.
+https://papers.nips.cc/paper/4390-hogwild-a-lock-free-approach-to-parallelizing-stochastic-gradient-descent.pdf
+3.
+http://papers.nips.cc/paper/4006-parallelized-stochastic-gradient-descent.pdf
+4.
+https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/distr\_mini\_batch.pdf
+\end{quote}
+
+    \textbf{Types of Gradient Descent we covered so far:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  \textbf{Batch GD} - we calculate the losses over each example in the
+  entire dataset and take the average at the end. We update the weight
+  vector, thus making one small, but ``good'' step towards the minimum.
+\item
+  \textbf{Stochastic GD} - first, we shuffle all our data, next, as we
+  iterate over each example, we calculate the loss, and update the
+  weight vector (the entire weight vector is updated at each example!).
+  By the time we have seen the whole data set, we will have made N (num
+  of observations), perhaps ``not so good'', steps with a general trend
+  towards the minimum. SGD will ``zig-zag'' towards the minimum and
+  eventually oscillate around the minimum but never converge. The
+  advantage of SGD is that we can make progress at every example - if
+  the data is very large, we may only need 1 pass over the whole
+  dataset. In contrast, BGD needs many passes over the whole dataset.
+  Hence SGD will finish much much faster.
+\item
+  \textbf{Mini-batch GD} - we specify a batch size (2 or more examples),
+  calculate the losses for each example, and average them over the batch
+  size, then update the weight vector. We do this for each batch in the
+  dataset. MBGD can potentially finish even faster than SGD. MBGD is
+  seldom used because finding the right hyper-parameter b is a PIA.) .
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{import} \PY{n+nn}{helperFunc}\PY{o}{,} \PY{n+nn}{linRegFunc}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Demo Parameters \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} }
+         \PY{c+c1}{\PYZsh{} TRY CHANGING THESE \PYZam{} SEE HOW IT AFFECTS OUR SEARCH}
+         \PY{n}{N\PYZus{}STEPS} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{BATCHSIZE} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{LEARNING\PYZus{}RATE} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{ORIGINAL\PYZus{}MODEL} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{SHOW\PYZus{}CONTOURS} \PY{o}{=} \PY{k+kc}{True}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Stoichastic GD Demo \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} }
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Load \PYZam{} Pre\PYZhy{}process Data}
+         \PY{n}{points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fivePoints.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{helperFunc}\PY{o}{.}\PY{n}{augment}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{points}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Perform SGD Updates \PYZam{} save intermediate model performance}
+         \PY{n}{models}\PY{p}{,} \PY{n}{loss} \PY{o}{=} \PY{n}{linRegFunc}\PY{o}{.}\PY{n}{SGDUpdate}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{N\PYZus{}STEPS}\PY{p}{,}
+                                             \PY{n}{BATCHSIZE}\PY{p}{,}
+                                             \PY{n}{ORIGINAL\PYZus{}MODEL}\PY{p}{,} 
+                                             \PY{n}{LEARNING\PYZus{}RATE}\PY{p}{,} 
+                                             \PY{n}{verbose} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Display Results}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Searched }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{len(models)\PYZcb{} models...}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best model: }\PY{l+s+si}{\PYZob{}models[np.argmin(loss)]\PYZcb{}}\PY{l+s+s2}{, Loss: }\PY{l+s+si}{\PYZob{}loss[np.argmin(loss)]\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{linRegFunc}\PY{o}{.}\PY{n}{plotGDProgress}\PY{p}{(}\PY{n}{points}\PY{p}{,} \PY{n}{models}\PY{p}{,} \PY{n}{loss}\PY{p}{,}
+                                   \PY{n}{show\PYZus{}contours} \PY{o}{=} \PY{n}{SHOW\PYZus{}CONTOURS}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model 0: [1.00, 0.00]
+Loss: 0.8
+     >>> gradient: [-0.4 -0.4]
+     >>> update: [-0.04 -0.04]
+Model 1: [1.04, 0.04]
+Loss: 0.7648
+     >>> gradient: [-1.008 -0.336]
+     >>> update: [-0.1008 -0.0336]
+Model 2: [1.14, 0.07]
+Loss: 0.9141452800000004
+     >>> gradient: [1.5552  0.31104]
+     >>> update: [0.15552  0.031104]
+Model 3: [0.99, 0.04]
+Loss: 0.7782153256960003
+     >>> gradient: [1.5737856 0.3934464]
+     >>> update: [0.15737856 0.03934464]
+Model 4: [0.83, 0.00]
+Loss: 1.2577106818564097
+     >>> gradient: [-1.07283661 -0.5364183 ]
+     >>> update: [-0.10728366 -0.05364183]
+Model 5: [0.94, 0.06]
+Loss: 0.8337672467910437
+
+Searched 6 models{\ldots}
+Best model: [1.04 0.04], Loss: 0.7648
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\textbf{DISCUSSION QUESTIONS:} * \emph{At first glance does this seem to
+work as well as regular gradient descent? Why might our initial
+impression be deceiving?} * \emph{Does adjusting the batchsize and/or
+learning rate fix the problem that we're seeing?} * \emph{What do you
+notice about the direction of the first 3 updates? From the perspective
+of the first three points, what should our line look like?} * \emph{How
+does the scale of our data can impact the direction of our updates \&
+time to convergence?}
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{INSTRUCTOR TALKING POINTS} * \emph{At first glance does this
+seem to work as well as regular gradient descent? Why might our initial
+impression be deceiving?} \textgreater{} SGD will oscillate a lot so at
+first glance it looks very unstable - as if it is not traveling in the
+direction of the minimum. * \emph{Does adjusting the batchsize and/or
+learning rate fix the problem that we're seeing?} \textgreater{} For
+such a small dataset adjusting the batchsize and/or learning rate won't
+be very helpful. * \emph{What do you notice about the direction of the
+first 3 updates? From the perspective of the first three points, what
+should our line look like?} \textgreater{} The first thre points form a
+line in an upward right direction. Without seeing the other points, one
+might think this line would continue up towards the solution. *
+\emph{How does the scale of our data impact the direction of our updates
+\& time to convergence?} \textgreater{} In Stochastic GD, the scale of
+the data does not impact direction of the updates as the updates are
+made at each data point. Compared to Batch GD a large data set will need
+fewer passes (epochs) over the entire dataset to converge.
+
+    \section{A Bigger Example}\label{a-bigger-example}
+
+Ok, now that we have a handle on the math and the basic design choices
+involved in implementing \& parallelizing Gradient Descent. Lets look at
+a slightly bigger example: the boston housing prices dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} ML modules}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{MinMaxScaler}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} set style for plotting}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{font\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1.3}\PY{p}{)}
+         \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{legend.framealpha}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{legend.frameon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} we\PYZsq{}ll also fix the random see for reproducibility}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Boston House Prices
+Dataset}\label{boston-house-prices-dataset}
+
+    Boston dataset is extremely common in machine learning experiments thus
+it is embedded in sklearn. Run the next few cells to load the data and
+become familiar with it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Load the data \PYZam{} take a look.}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}boston}
+         \PY{n}{boston} \PY{o}{=} \PY{n}{load\PYZus{}boston}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} OPTIONAL \PYZhy{} view description}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{boston}\PY{o}{.}\PY{n}{DESCR}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Boston House Prices dataset
+===========================
+
+Notes
+------
+Data Set Characteristics:  
+
+    :Number of Instances: 506 
+
+    :Number of Attributes: 13 numeric/categorical predictive
+    
+    :Median Value (attribute 14) is usually the target
+
+    :Attribute Information (in order):
+        - CRIM     per capita crime rate by town
+        - ZN       proportion of residential land zoned for lots over 25,000 sq.ft.
+        - INDUS    proportion of non-retail business acres per town
+        - CHAS     Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)
+        - NOX      nitric oxides concentration (parts per 10 million)
+        - RM       average number of rooms per dwelling
+        - AGE      proportion of owner-occupied units built prior to 1940
+        - DIS      weighted distances to five Boston employment centres
+        - RAD      index of accessibility to radial highways
+        - TAX      full-value property-tax rate per \$10,000
+        - PTRATIO  pupil-teacher ratio by town
+        - B        1000(Bk - 0.63)\^{}2 where Bk is the proportion of blacks by town
+        - LSTAT    \% lower status of the population
+        - MEDV     Median value of owner-occupied homes in \$1000's
+
+    :Missing Attribute Values: None
+
+    :Creator: Harrison, D. and Rubinfeld, D.L.
+
+This is a copy of UCI ML housing dataset.
+http://archive.ics.uci.edu/ml/datasets/Housing
+
+
+This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University.
+
+The Boston house-price data of Harrison, D. and Rubinfeld, D.L. 'Hedonic
+prices and the demand for clean air', J. Environ. Economics \& Management,
+vol.5, 81-102, 1978.   Used in Belsley, Kuh \& Welsch, 'Regression diagnostics
+{\ldots}', Wiley, 1980.   N.B. Various transformations are used in the table on
+pages 244-261 of the latter.
+
+The Boston house-price data has been used in many machine learning papers that address regression
+problems.   
+     
+**References**
+
+   - Belsley, Kuh \& Welsch, 'Regression diagnostics: Identifying Influential Data and Sources of Collinearity', Wiley, 1980. 244-261.
+   - Quinlan,R. (1993). Combining Instance-Based and Model-Based Learning. In Proceedings on the Tenth International Conference of Machine Learning, 236-243, University of Massachusetts, Amherst. Morgan Kaufmann.
+   - many more! (see http://archive.ics.uci.edu/ml/datasets/Housing)
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Create data frame \PYZam{} test/train split.}
+         \PY{n}{X} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{boston}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{boston}\PY{o}{.}\PY{n}{feature\PYZus{}names}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{boston}\PY{o}{.}\PY{n}{target}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Take a look}
+         \PY{n}{X}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}       CRIM    ZN  INDUS  CHAS    NOX     RM   AGE     DIS  RAD    TAX  \textbackslash{}
+         0  0.00632  18.0   2.31   0.0  0.538  6.575  65.2  4.0900  1.0  296.0   
+         1  0.02731   0.0   7.07   0.0  0.469  6.421  78.9  4.9671  2.0  242.0   
+         2  0.02729   0.0   7.07   0.0  0.469  7.185  61.1  4.9671  2.0  242.0   
+         3  0.03237   0.0   2.18   0.0  0.458  6.998  45.8  6.0622  3.0  222.0   
+         4  0.06905   0.0   2.18   0.0  0.458  7.147  54.2  6.0622  3.0  222.0   
+         
+            PTRATIO       B  LSTAT  
+         0     15.3  396.90   4.98  
+         1     17.8  396.90   9.14  
+         2     17.8  392.83   4.03  
+         3     18.7  394.63   2.94  
+         4     18.7  396.90   5.33  
+\end{Verbatim}
+            
+    \subsection{Exploratory Data Analysis}\label{exploratory-data-analysis}
+
+    Before we jump into our linear regression, its good to become familiar
+with the variables you will be modeling.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Summary statistics}
+         \PY{n}{X}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}              CRIM          ZN       INDUS        CHAS         NOX          RM  \textbackslash{}
+         count  506.000000  506.000000  506.000000  506.000000  506.000000  506.000000   
+         mean     3.593761   11.363636   11.136779    0.069170    0.554695    6.284634   
+         std      8.596783   23.322453    6.860353    0.253994    0.115878    0.702617   
+         min      0.006320    0.000000    0.460000    0.000000    0.385000    3.561000   
+         25\%      0.082045    0.000000    5.190000    0.000000    0.449000    5.885500   
+         50\%      0.256510    0.000000    9.690000    0.000000    0.538000    6.208500   
+         75\%      3.647423   12.500000   18.100000    0.000000    0.624000    6.623500   
+         max     88.976200  100.000000   27.740000    1.000000    0.871000    8.780000   
+         
+                       AGE         DIS         RAD         TAX     PTRATIO           B  \textbackslash{}
+         count  506.000000  506.000000  506.000000  506.000000  506.000000  506.000000   
+         mean    68.574901    3.795043    9.549407  408.237154   18.455534  356.674032   
+         std     28.148861    2.105710    8.707259  168.537116    2.164946   91.294864   
+         min      2.900000    1.129600    1.000000  187.000000   12.600000    0.320000   
+         25\%     45.025000    2.100175    4.000000  279.000000   17.400000  375.377500   
+         50\%     77.500000    3.207450    5.000000  330.000000   19.050000  391.440000   
+         75\%     94.075000    5.188425   24.000000  666.000000   20.200000  396.225000   
+         max    100.000000   12.126500   24.000000  711.000000   22.000000  396.900000   
+         
+                     LSTAT  
+         count  506.000000  
+         mean    12.653063  
+         std      7.141062  
+         min      1.730000  
+         25\%      6.950000  
+         50\%     11.360000  
+         75\%     16.955000  
+         max     37.970000  
+\end{Verbatim}
+            
+    Note that some of the features are catecorical and some are continious.
+
+Let's also take a look at a correlation matrix of features.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} compute the correlation matrix}
+         \PY{n}{corr} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} generate a mask for the lower triangle}
+         \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{bool}\PY{p}{)}
+         \PY{n}{mask}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{triu\PYZus{}indices\PYZus{}from}\PY{p}{(}\PY{n}{mask}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+         
+         \PY{c+c1}{\PYZsh{} set up the matplotlib figure}
+         \PY{n}{f}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} generate a custom diverging colormap}
+         \PY{n}{cmap} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{diverging\PYZus{}palette}\PY{p}{(}\PY{l+m+mi}{220}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{as\PYZus{}cmap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} draw the heatmap with the mask and correct aspect ratio}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{mask}\PY{o}{=}\PY{n}{mask}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,}
+                     \PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                     \PY{n}{linewidths}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{cbar\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{shrink}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Scaling}\label{scaling}
+
+Once we start performing gradient descent on real world data, a few
+additional concerns arise.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Lets visualize two of the features from the Boston Dataset}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{RM}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{RM}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average number of rooms per dwelling}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Price, \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{RAD}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{RAD}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Index of accessibility to radial highways}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Price, \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\textbf{DISCUSSION QUESTION:} What will happen in the Gradient Descent
+update step when you have input variables that are measured on very
+different scales? What could we do to avoid this problem?
+\end{quote}
+
+    As you probably realized, the easiest solution is to perform
+normalization before we start modeling. Here we'll normalize each
+feature so that all \(x_{ji} \in (0,1)\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{scaler} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    Note that we're going to learn normalization constants only on training
+set. That's done because the assumption is that test set is unreachable
+during training. However once we've got our normalization functions,
+we'll also aply them to the test set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Sklearn Linear Regression}\label{sklearn-linear-regression}
+
+    Here we use very simple Linear Regression model. Scikit-learn uses the
+closed-form solition for Linear Regression problem thus it gives very
+good results.
+
+    \subsection{Fitting}\label{fitting}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} initialize the model}
+         \PY{n}{model\PYZus{}sk} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} fit the data}
+         \PY{n}{model\PYZus{}sk}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} LinearRegression(copy\_X=True, fit\_intercept=True, n\_jobs=1, normalize=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} run our model to predict the test and train sets for evaluation}
+         \PY{n}{preds\PYZus{}test} \PY{o}{=} \PY{n}{model\PYZus{}sk}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{preds\PYZus{}train} \PY{o}{=} \PY{n}{model\PYZus{}sk}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Evaluation}\label{evaluation}
+
+Let's see what features are significant for the model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{model\PYZus{}sk}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{model\PYZus{}sk}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{model\PYZus{}sk}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{columns}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{model\PYZus{}sk}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sklearn model coefficients}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Next we'll evaluate our model according to three different metrics: *
+MAE (Mean Absolute Error) * RMSE (Root Mean Squared Error) * MAPE (Mean
+Absolute Percentage Error)
+
+Note that there is no MAPE implementation in sklearn \& that this is a
+problematic metric because it is prone to ZeroDivisionErrors. However
+for today's illustration we have included a custom implementation in the
+supplemental file \texttt{linRegFunc.py}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} define a function}
+         \PY{k}{def} \PY{n+nf}{evaluate}\PY{p}{(}\PY{n}{models}\PY{p}{,} \PY{n}{metrics}\PY{p}{,} \PY{n}{samples}\PY{p}{,} \PY{n}{metrics\PYZus{}names}\PY{p}{,} \PY{n}{models\PYZus{}names}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    This function runs Linear Regression Evaluation metrics }
+         \PY{l+s+sd}{    by looping over a provided set of models and datasets.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{results} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{samples}\PY{p}{)} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{models}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{metrics}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{samples\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{models\PYZus{}names}\PY{p}{:}
+                 \PY{n}{samples\PYZus{}names}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{p}{[}\PY{n}{m} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{m} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{m\PYZus{}num}\PY{p}{,} \PY{n}{model} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{models}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{row}\PY{p}{,} \PY{n}{sample} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{samples}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{col}\PY{p}{,} \PY{n}{metric} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{metrics}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{results}\PY{p}{[}\PY{n}{row} \PY{o}{+} \PY{n}{m\PYZus{}num} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{metric}\PY{p}{(}\PY{n}{sample}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{sample}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{results} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{results}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{metrics\PYZus{}names}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{samples\PYZus{}names}\PY{p}{)}
+             \PY{k}{return} \PY{n}{results}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} define metrics to run}
+         \PY{n}{metrics} \PY{o}{=} \PY{p}{[}\PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{,} 
+                    \PY{k}{lambda} \PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{:} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mf}{0.5}\PY{p}{,} 
+                    \PY{n}{linRegFunc}\PY{o}{.}\PY{n}{mean\PYZus{}absolute\PYZus{}percentage\PYZus{}error}\PY{p}{]}
+         \PY{n}{metrics\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MAE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MAPE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} define data sets \PYZam{} models to run on}
+         \PY{n}{samples} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} 
+                    \PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{]}
+         \PY{n}{models\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sklearn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{model\PYZus{}sk}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} function call}
+         \PY{n}{evaluate}\PY{p}{(}\PY{n}{models}\PY{p}{,} \PY{n}{metrics}\PY{p}{,} \PY{n}{samples}\PY{p}{,} \PY{n}{metrics\PYZus{}names}\PY{p}{,} \PY{n}{models\PYZus{}names}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}                     MAE      RMSE       MAPE
+         Sklearn Train  3.315165  4.652051  16.573489
+         Sklearn Test   3.191509  4.930662  16.880585
+\end{Verbatim}
+            
+    It also interesting to take a look how the predicted points relate to
+real ones. All the points should lie on the black dotted line (\(y=x\))
+assuming that our model is perfect.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{preds\PYZus{}train}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{preds\PYZus{}test}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real price, \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted price, \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{y}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{y}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ideal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_91_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Cross-validation}\label{cross-validation}
+
+    The common method to evaluate the model is cross-validation. The idea
+behind it is to divide the whole set of objects into \(k\) sections and
+then use one section as a test set and other \(k-1\) as a train (repeat
+it with all the sections).
+
+There is a special function for this in sklearn called \(\text{KFold}\).
+It creates set of indices for cross-validation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{cv} \PY{o}{=} \PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next step is to do everything that we've done before in a loop: * Split
+* Scale * Train * Evaluate
+
+And store the average value of the errors (\(\text{res}\) variable)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{cv}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{groups}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} <generator object \_BaseKFold.split at 0x1a16a77a40>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{res} \PY{o}{=} \PY{k+kc}{None}
+         \PY{k}{for} \PY{n}{train\PYZus{}idx}\PY{p}{,} \PY{n}{test\PYZus{}idx} \PY{o+ow}{in} \PY{n}{cv}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{groups}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} split}
+             \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{train\PYZus{}idx}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{test\PYZus{}idx}\PY{p}{]}
+             \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{n}{train\PYZus{}idx}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{test\PYZus{}idx}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} scale}
+             \PY{n}{scaler} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}
+             \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+             \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+             
+             \PY{n}{samples\PYZus{}cv} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} 
+                           \PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} fit}
+             \PY{n}{model\PYZus{}sk\PYZus{}cv} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{samples\PYZus{}cv}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{samples\PYZus{}cv}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} evaluate}
+             \PY{k}{if} \PY{n}{res} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n}{res} \PY{o}{=} \PY{n}{evaluate}\PY{p}{(}\PY{p}{[}\PY{n}{model\PYZus{}sk\PYZus{}cv}\PY{p}{]}\PY{p}{,} \PY{n}{metrics}\PY{p}{,} \PY{n}{samples\PYZus{}cv}\PY{p}{,} \PY{n}{metrics\PYZus{}names}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sklearn CV}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{res} \PY{o}{+}\PY{o}{=} \PY{n}{evaluate}\PY{p}{(}\PY{p}{[}\PY{n}{model\PYZus{}sk\PYZus{}cv}\PY{p}{]}\PY{p}{,} \PY{n}{metrics}\PY{p}{,} \PY{n}{samples\PYZus{}cv}\PY{p}{,} \PY{n}{metrics\PYZus{}names}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sklearn CV}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} take the average value across all folds}
+         \PY{n}{res} \PY{o}{/}\PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{n\PYZus{}splits}
+\end{Verbatim}
+
+
+    Here is the result of CV
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{res}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:}                        MAE      RMSE       MAPE
+         Sklearn CV Train  3.269853  4.660627  16.423244
+         Sklearn CV Test   3.390748  4.843271  17.026372
+\end{Verbatim}
+            
+    \section{Homegrown Linear
+Regresssion}\label{homegrown-linear-regresssion}
+
+In this section we'll write our own Linear Regression class that
+performs gradient descent. This class will use numpy for efficient
+matrix calculations. Recall that the matrix representation of our loss
+functions is:
+
+\[
+f(\boldsymbol{\theta}) = \frac{1}{n}\|\text{X}'\cdot \boldsymbol{\theta} - \mathbf{y}\|_2^2
+\]
+
+Then the gradient can be easily calculated in vectorized form:
+
+\[
+\nabla_{\boldsymbol{\theta}} f(\boldsymbol{\theta}) = \frac{2}{n}\,\text{X}'^{\text{T}}\left(\text{X}'\cdot \boldsymbol{\theta} - \mathbf{y}\right)
+\]
+
+Exactly these computations are implemented down below in
+\textbf{BasicLinearRegressionHomegrown} class
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k}{class} \PY{n+nc}{BasicLinearRegressionHomegrown}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{coef\PYZus{}} \PY{o}{=} \PY{k+kc}{None}       \PY{c+c1}{\PYZsh{} weight vector}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{intercept\PYZus{}} \PY{o}{=} \PY{k+kc}{None}  \PY{c+c1}{\PYZsh{} bias term}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o}{=} \PY{k+kc}{None}      \PY{c+c1}{\PYZsh{} augmented weight vector, i.e., bias + weights}
+                                         \PY{c+c1}{\PYZsh{} this allows to treat all decision variables homogeneously}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{p}{]}\PY{p}{,} 
+                                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coef}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{p}{]}\PY{p}{,} 
+                                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{intercept}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{p}{]}\PY{p}{,} 
+                                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{p}{]}\PY{p}{\PYZcb{}}
+                 
+             \PY{k}{def} \PY{n+nf}{\PYZus{}grad}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Calculate the gradient of the objective function}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray):        train objects}
+         \PY{l+s+sd}{            y(ndarray):        answers for train objects}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            gradient(ndarray): analytical gradient vector}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{)}
+                 \PY{n}{error} \PY{o}{=} \PY{n}{pred} \PY{o}{\PYZhy{}} \PY{n}{y}
+                 \PY{n}{gradient} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{error}\PY{p}{,} \PY{n}{X}\PY{p}{)} \PY{o}{/} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{k}{return} \PY{n}{gradient}
+             
+             \PY{c+c1}{\PYZsh{} full gradient descent, i.e., not stochastic gd}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}gd}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Runs GD and logs error, weigths, gradient at every step}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray):      train objects}
+         \PY{l+s+sd}{            y(ndarray):      answers for train objects}
+         \PY{l+s+sd}{            max\PYZus{}iter(int):   number of weight updates}
+         \PY{l+s+sd}{            alpha(floar):    step size in direction of gradient}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            None}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{max\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coef}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{intercept}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                     
+                     \PY{n}{rmse} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse}\PY{p}{)}
+         
+                     \PY{c+c1}{\PYZsh{} calculate gradient}
+                     \PY{n}{grad} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}grad}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{grad}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{} do gradient step}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{alpha} \PY{o}{*} \PY{n}{grad}
+             
+             \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Public API for fitting a linear regression model}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray):      train objects}
+         \PY{l+s+sd}{            y(ndarray):      answers for train objects}
+         \PY{l+s+sd}{            max\PYZus{}iter(int):   number of weight updates}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            self}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{c+c1}{\PYZsh{} Augment the data with the bias term.}
+                 \PY{c+c1}{\PYZsh{} So we can treat the the input variables and the bias term homogeneously }
+                 \PY{c+c1}{\PYZsh{} from a vectorization perspective}
+                 \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{} initialize if the first step}
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} do full gradient descent}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}gd}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{intercept\PYZus{}} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{coef\PYZus{}} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+                 \PY{k}{return} \PY{n+nb+bp}{self}
+                 
+             \PY{k}{def} \PY{n+nf}{score}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Calculate RMSE metric}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray):      objects}
+         \PY{l+s+sd}{            y(ndarray):      answers}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            rmse(float):     RMSE}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{pred} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                 \PY{n}{error} \PY{o}{=} \PY{n}{pred} \PY{o}{\PYZhy{}} \PY{n}{y}
+                 \PY{n}{rmse} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{error} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{/} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mf}{0.5}
+                 \PY{k}{return} \PY{n}{rmse}
+                 
+             \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Make a prediction}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray):      objects}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            pred(ndarray):   predictions}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{c+c1}{\PYZsh{} check whether X has appended bias feature or not}
+                 \PY{k}{if} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{intercept\PYZus{}}
+                 \PY{k}{return} \PY{n}{pred}
+\end{Verbatim}
+
+
+    \textbf{Create model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{model\PYZus{}homegrown} \PY{o}{=} \PY{n}{BasicLinearRegressionHomegrown}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Fitting}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{model\PYZus{}homegrown}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} <\_\_main\_\_.BasicLinearRegressionHomegrown at 0x1a15c11cc0>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{model\PYZus{}homegrown}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear Regression via Gradient Descent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_106_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Evaluation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{model\PYZus{}sk}\PY{p}{,} \PY{n}{model\PYZus{}homegrown}\PY{p}{]}
+         \PY{n}{models\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sklearn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Homegrown}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{evaluate}\PY{p}{(}\PY{n}{models}\PY{p}{,} \PY{n}{metrics}\PY{p}{,} \PY{n}{samples}\PY{p}{,} \PY{n}{metrics\PYZus{}names}\PY{p}{,} \PY{n}{models\PYZus{}names}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:}                        MAE       RMSE       MAPE
+         Sklearn Train     3.315165   4.652051  16.573489
+         Sklearn Test      3.191509   4.930662  16.880585
+         Homegrown Train  11.125454  14.212790  44.340562
+         Homegrown Test    9.733487  12.704141  42.076697
+\end{Verbatim}
+            
+    \subsection{Numerical check}\label{numerical-check}
+
+In the last section \textbf{BasicLinearRegressionHomegrown} class
+provides you with the method *\_grad* that allows to compute analytical
+gradient. This function is correct. However with more complicated Loss
+Functions we may run the risk of making a mistake. In this section we'll
+look at a simple way to check that our gradient function is right.
+
+    The formula for analytical gradient (from calculus):
+
+\[
+\nabla f(\mathbf{x}) = 
+\begin{bmatrix}
+\frac{\partial f}{\partial x_1}\\
+\vdots\\
+\frac{\partial f}{\partial x_m}
+\end{bmatrix}, \text{ where } m \text{ is the space dimension}\\
+\frac{\partial f}{\partial x_1} = \lim_{\alpha \rightarrow 0} \frac{f(x_1 + \alpha, x_2 \ldots x_m) - f(x_1, x_2 \ldots x_m)}{\alpha}
+\]
+
+For sufficiently small \(\alpha\) one can approximate partial derivative
+by simple throwing out the limit operator
+
+\[
+\frac{\partial f}{\partial x_1} \approx \frac{f(x_1 + \alpha, x_2 \ldots x_m) - f(x_1, x_2 \ldots x_m)}{\alpha} = \left( \frac{\partial f}{\partial x_1} \right)_{\text{num}}\\
+\]
+
+Then the final approximation of the gradient is:
+
+\[
+\nabla f(\mathbf{x}) \approx \nabla_{\text{num}\,\,} f(\mathbf{x}) = \begin{bmatrix}
+\left( \frac{\partial f}{\partial x_1} \right)_{\text{num}}\\
+\vdots\\
+\left( \frac{\partial f}{\partial x_m} \right)_{\text{num}}
+\end{bmatrix}
+\]
+
+The common way of measuring the difference between vectors is the
+following: \[
+\text{er} = \frac{\|\nabla f(\mathbf{x}) - \nabla_{\text{num}\,\,}f(\mathbf{x})\|_2^2}{\|\nabla f(\mathbf{x})\|_2^2} = \frac{\sum_{j=1}^{m}\left(\nabla^j f(\mathbf{x}) - \nabla^j_{\text{num}\,\,}f(\mathbf{x})\right)^2}{\sum_{j=1}^{m}\left(\nabla^j f(\mathbf{x})\right)^2}
+\]
+
+The next class, \textbf{TweakedLinearRegressionHomegrown}, inherits from
+\textbf{BasicLinearRegressionHomegrown} and adds a method for numerical
+approximation of gradient. Next we'll * Check our approximation function
+by comparing with the analytical one. They \textbf{should} be similar. *
+Plot the difference of analytical and numerical gradients and describe
+what we observe.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k}{class} \PY{n+nc}{TweakedLinearRegressionHomegrown}\PY{p}{(}\PY{n}{BasicLinearRegressionHomegrown}\PY{p}{)}\PY{p}{:}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} call the constructor of the parent class}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{n}{TweakedLinearRegressionHomegrown}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad\PYZus{}num}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 
+             \PY{n+nd}{@staticmethod}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}gradient\PYZus{}approximation}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Returns the numerical gradient of the function f at the point x}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            f(callable): function that takes the point x as an input }
+         \PY{l+s+sd}{                         and returns the value of the function}
+         \PY{l+s+sd}{            x(ndarray): numpy array which contains the coordinates }
+         \PY{l+s+sd}{                        of the point to evaluate gradient}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            grad\PYZus{}num(ndarray): the numerical approximation }
+         \PY{l+s+sd}{                               of the gradient}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+                 \PY{n}{grad\PYZus{}num} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.001}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{h}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{alpha}
+                     \PY{n}{grad\PYZus{}num}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{f}\PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{h}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{alpha}
+         
+                 \PY{k}{return} \PY{n}{grad\PYZus{}num}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}grad\PYZus{}num}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Returns the numerical gradient of the LinearRegression }
+         \PY{l+s+sd}{        objective function}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray): train objects}
+         \PY{l+s+sd}{            y(ndarray): answers for train objects}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            grad\PYZus{}num(ndarray): the numerical approximation }
+         \PY{l+s+sd}{                               of the gradient}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{n}{grad\PYZus{}num} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{a}\PY{p}{)}
+                     \PY{n}{error} \PY{o}{=} \PY{n}{pred} \PY{o}{\PYZhy{}} \PY{n}{y}
+                     \PY{n}{mse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{error} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+                     \PY{k}{return} \PY{n}{mse}
+                     
+                 
+                 \PY{n}{grad\PYZus{}num} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}gradient\PYZus{}approximation}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{)}
+                 
+                 \PY{k}{return} \PY{n}{grad\PYZus{}num}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}gd}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Runs GD and logs error, weigths, gradient and }
+         \PY{l+s+sd}{        numerical gradient at every step}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray):      train objects}
+         \PY{l+s+sd}{            y(ndarray):      answers for train objects}
+         \PY{l+s+sd}{            max\PYZus{}iter(int):   number of EPOCHS, i.e., full passes over data}
+         \PY{l+s+sd}{            batch\PYZus{}size(int): number of samples in one batch}
+         \PY{l+s+sd}{            alpha(floar):    step size in direction of gradient}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            None}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{max\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coef}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{intercept}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                     
+                     \PY{n}{rmse} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse}\PY{p}{)}
+         
+                     \PY{n}{grad} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}grad}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{grad}\PY{p}{)}
+                     
+                     \PY{n}{grad\PYZus{}num} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}grad\PYZus{}num}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad\PYZus{}num}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{grad\PYZus{}num}\PY{p}{)}
+                     
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{alpha} \PY{o}{*} \PY{n}{grad}
+\end{Verbatim}
+
+
+    Create model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{model\PYZus{}homegrown\PYZus{}check\PYZus{}grad} \PY{o}{=} \PY{n}{TweakedLinearRegressionHomegrown}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Fitting
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{model\PYZus{}homegrown\PYZus{}check\PYZus{}grad}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} <\_\_main\_\_.TweakedLinearRegressionHomegrown at 0x1a16cc5470>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}check\PYZus{}grad}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear Regression via Batch Gradient Descent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{frameon}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_117_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Plotting error curves
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{grad\PYZus{}num} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}check\PYZus{}grad}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad\PYZus{}num}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{grad} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}check\PYZus{}grad}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{k}{def} \PY{n+nf}{relative\PYZus{}error}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{grad\PYZus{}num}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{grad} \PY{o}{\PYZhy{}} \PY{n}{grad\PYZus{}num}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{1.} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{grad} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{k}{def} \PY{n+nf}{absolute\PYZus{}error}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{grad\PYZus{}num}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{grad} \PY{o}{\PYZhy{}} \PY{n}{grad\PYZus{}num}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{1.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{absolute\PYZus{}error}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{grad\PYZus{}num}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:}                   0
+         count  1.000000e+02
+         mean   2.599855e-06
+         std    2.973209e-13
+         min    2.599855e-06
+         25\%    2.599855e-06
+         50\%    2.599855e-06
+         75\%    2.599855e-06
+         max    2.599856e-06
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{absolute\PYZus{}error}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{grad\PYZus{}num}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} array([2.59985569e-06, 2.59985539e-06])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Numerical approximation of gradient quality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{relative\PYZus{}error}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{grad\PYZus{}num}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Relative error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{absolute\PYZus{}error}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{grad\PYZus{}num}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Absolute error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_124_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As one can observe absolute error jitters but remains approximately the
+same during all the trining process. The big values in the beginning is
+due to the fact that the values of gradient is also big.
+
+Relative error grows because the norm of the gradient (which is in the
+denominator) becomes smaller while the optimization process converges.
+
+    \subsection{Stochastic Gradient
+Descent}\label{stochastic-gradient-descent}
+
+In section 3 we suggested that we can get faster convergence if we
+calculate the gradient not over the whole set of data but over the small
+(size of \(B\)) \textbf{batch} of it. However with our small dataset
+this didn't seem to be the case. Let's take a second look now that we
+are working on a more realistic dataset.
+
+Recall the gradient calculation for Stoichastic Gradient Descent:
+
+\begin{equation}\tag{3.2}
+\nabla f(\boldsymbol{\theta}) \approx \nabla_{\text{batch}\,\,} f(\boldsymbol{\theta}) = \frac{2}{n}\sum_{i=1}^{B}\left(\mathbf{x}'_{a_i}\cdot \boldsymbol{\theta} - y_{a_i}\right)\cdot \mathbf{x}'_{a_i}
+\end{equation}
+
+where \(a_i\) is an array of indices of objects which are in this batch.
+
+The next class \textbf{StochasticLinearRegressionHomegrown}, inherits
+from \textbf{TweakedLinearRegressionHomegrown} to stochastic gradient
+descent algorithm as a member of a class. As before, we'll check that
+analytical gradient is right via numerical gradient function from
+\textbf{TweakedLinearRegressionHomegrown}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} 506
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{k}{class} \PY{n+nc}{StochasticLinearRegressionHomegrown}\PY{p}{(}\PY{n}{TweakedLinearRegressionHomegrown}\PY{p}{)}\PY{p}{:}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} call the constructor of the parent class}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{n}{StochasticLinearRegressionHomegrown}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}sgd}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Runs Stochastic GD and logs error, weigths, gradient and }
+         \PY{l+s+sd}{        numerical gradient at every step}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray):      train objects}
+         \PY{l+s+sd}{            y(ndarray):      answers for train objects}
+         \PY{l+s+sd}{            max\PYZus{}iter(int):   number of EPOCHS, i.e., full passes over data}
+         \PY{l+s+sd}{            batch\PYZus{}size(int): number of samples in one batch}
+         \PY{l+s+sd}{            alpha(floar):    step size in direction of gradient}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            None}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{max\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{idxs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{idxs}\PY{p}{]}
+                     \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{n}{idxs}\PY{p}{]}
+                     \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                         
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coef}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{intercept}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                         
+                         \PY{n}{rmse} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse}\PY{p}{)}
+                         
+                         \PY{c+c1}{\PYZsh{} calculate gradient}
+                         \PY{n}{grad} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}grad}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i} \PY{o}{+} \PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i} \PY{o}{+} \PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{)}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{grad}\PY{p}{)}
+                         
+                         \PY{c+c1}{\PYZsh{} numerical gradient}
+                         \PY{n}{grad\PYZus{}num} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}grad\PYZus{}num}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i} \PY{o}{+} \PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i} \PY{o}{+} \PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{)}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad\PYZus{}num}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{grad\PYZus{}num}\PY{p}{)}
+                     
+                         \PY{c+c1}{\PYZsh{} do gradient step}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{alpha} \PY{o}{*} \PY{n}{grad}
+                 
+             \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Public API for fitting a linear regression model}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray):      train objects}
+         \PY{l+s+sd}{            y(ndarray):      answers for train objects}
+         \PY{l+s+sd}{            max\PYZus{}iter(int):   number of EPOCHS, i.e., full passes over data}
+         \PY{l+s+sd}{            batch\PYZus{}size(int): number of samples in one batch}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            self}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{]}
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}sgd}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{intercept\PYZus{}} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{coef\PYZus{}} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    Create model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{model\PYZus{}homegrown\PYZus{}sgd} \PY{o}{=} \PY{n}{StochasticLinearRegressionHomegrown}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Fitting
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{model\PYZus{}homegrown\PYZus{}sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}sgd}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of times gradient updated: N/batch\PYZus{}size * max\PYZus{}iter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear Regression via Stochastic Gradient Descent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{frameon}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_133_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Plotting error curves
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{grad\PYZus{}num} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}sgd}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad\PYZus{}num}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{grad} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}sgd}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grad}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Numerical approximation of gradient quality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{relative\PYZus{}error}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{grad\PYZus{}num}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Relative error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{absolute\PYZus{}error}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{grad\PYZus{}num}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Absolute error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_136_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Evaluation
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{model\PYZus{}sk}\PY{p}{,} \PY{n}{model\PYZus{}homegrown}\PY{p}{,} \PY{n}{model\PYZus{}homegrown\PYZus{}sgd}\PY{p}{]}
+         \PY{n}{models\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sklearn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Homegrown Full GD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Homegrown SGD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{evaluate}\PY{p}{(}\PY{n}{models}\PY{p}{,} \PY{n}{metrics}\PY{p}{,} \PY{n}{samples}\PY{p}{,} \PY{n}{metrics\PYZus{}names}\PY{p}{,} \PY{n}{models\PYZus{}names}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:}                                MAE       RMSE       MAPE
+         Sklearn Train             3.315165   4.652051  16.573489
+         Sklearn Test              3.191509   4.930662  16.880585
+         Homegrown Full GD Train  11.125454  14.212790  44.340562
+         Homegrown Full GD Test    9.733487  12.704141  42.076697
+         Homegrown SGD Train       3.302384   4.874682  16.277540
+         Homegrown SGD Test        2.976680   5.078497  15.681669
+\end{Verbatim}
+            
+    \subsection{L1 and L2 regularization for Linear
+Regression}\label{l1-and-l2-regularization-for-linear-regression}
+
+Regularization is a way of penalizing the model for excessive
+complexity. It allows us to avoid overfitting.
+
+There are many ways of doing regularization but these two are the major
+ones: * \textbf{L2-regularization:} \[
+f(\mathbf{w}, b) = \frac{1}{n}\sum_{i=1}^{n}\left[ (\mathbf{w}\cdot\mathbf{x}_i + b) - y_i\right]^2 + \lambda \sum_{j=1}^{m}w_j^2
+\] or in matrix way: \[
+f(\mathbf{w}, b) = \|\text{X}\cdot\mathbf{w} + b\cdot\mathbf{1}_n - \mathbf{y}\|_2^2 + \lambda \|\mathbf{w}\|_2^2
+\] * \textbf{L1-regularization:} \[
+f(\mathbf{w}, b) = \frac{1}{n}\sum_{i=1}^{n}\left[ (\mathbf{w}\cdot\mathbf{x}_i + b) - y_i\right]^2 + \lambda \sum_{j=1}^{m}|w_j|
+\] or in matrix way: \[
+f(\mathbf{w}, b) = \|\text{X}\cdot\mathbf{w} + b\cdot\mathbf{1}_n - \mathbf{y}\|_2^2 + \lambda \|\mathbf{w}\|_1
+\]
+
+The class below, \textbf{RegularizedLinearRegressionHomegrown}, inherits
+from \textbf{BasicLinearRegressionHomegrown} and encorporates both
+regularization strategies into the GD solution of Linear Regression.
+Below we'll examine the problem that arises with L1-regularization as
+well as its benefits.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{k}{class} \PY{n+nc}{RegularizedLinearRegressionHomegrown}\PY{p}{(}\PY{n}{BasicLinearRegressionHomegrown}\PY{p}{)}\PY{p}{:}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{l1\PYZus{}reg}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{l2\PYZus{}reg}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} call the constructor of the parent class}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{n}{RegularizedLinearRegressionHomegrown}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l1\PYZus{}reg} \PY{o}{=} \PY{n}{l1\PYZus{}reg}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l2\PYZus{}reg} \PY{o}{=} \PY{n}{l2\PYZus{}reg}
+                 
+             \PY{k}{def} \PY{n+nf}{\PYZus{}grad}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Calculate the gradient of the objective function }
+         \PY{l+s+sd}{        with L1 and L2 regularizations}
+         
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            X(ndarray):        train objects}
+         \PY{l+s+sd}{            y(ndarray):        answers for train objects}
+         \PY{l+s+sd}{        Return:}
+         \PY{l+s+sd}{            gradient(ndarray): analytical gradient vector}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{)}
+                 \PY{n}{error} \PY{o}{=} \PY{n}{pred} \PY{o}{\PYZhy{}} \PY{n}{y}
+                 \PY{n}{gradient} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{error}\PY{p}{,} \PY{n}{X}\PY{p}{)} \PY{o}{/} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{} penalties only for weights}
+                 \PY{n}{gradient}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l2\PYZus{}reg} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l1\PYZus{}reg} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{gradient}
+\end{Verbatim}
+
+
+    Create model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l2} \PY{o}{=} \PY{n}{RegularizedLinearRegressionHomegrown}\PY{p}{(}\PY{n}{l1\PYZus{}reg}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{l2\PYZus{}reg}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l1} \PY{o}{=} \PY{n}{RegularizedLinearRegressionHomegrown}\PY{p}{(}\PY{n}{l1\PYZus{}reg}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{l2\PYZus{}reg}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{)}
+\end{Verbatim}
+
+
+    Fitting
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{40000}\PY{p}{)}
+         \PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l1}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{40000}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:} <\_\_main\_\_.RegularizedLinearRegressionHomegrown at 0x1a1df24b38>
+\end{Verbatim}
+            
+    Evaluation
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{model\PYZus{}sk}\PY{p}{,} \PY{n}{model\PYZus{}homegrown}\PY{p}{,} \PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l2}\PY{p}{,} \PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l1}\PY{p}{]}
+         \PY{n}{models\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sklearn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Homegrown}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Homegrown Regularized L2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Homegrown Regularized L1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{evaluate}\PY{p}{(}\PY{n}{models}\PY{p}{,} \PY{n}{metrics}\PY{p}{,} \PY{n}{samples}\PY{p}{,} \PY{n}{metrics\PYZus{}names}\PY{p}{,} \PY{n}{models\PYZus{}names}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}95}]:}                                      MAE      RMSE       MAPE
+         Sklearn Train                   3.315165  4.652051  16.573489
+         Sklearn Test                    3.191509  4.930662  16.880585
+         Homegrown Train                 3.553939  5.215440  16.997004
+         Homegrown Test                  3.163314  5.182396  16.636239
+         Homegrown Regularized L2 Train  4.538807  6.663758  21.517049
+         Homegrown Regularized L2 Test   3.895744  5.969197  20.338186
+         Homegrown Regularized L1 Train  4.463647  6.509919  21.737358
+         Homegrown Regularized L1 Test   3.905801  6.069943  20.587212
+\end{Verbatim}
+            
+    Comparison of regularized models
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{model\PYZus{}homegrown}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{model\PYZus{}homegrown}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l1}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l1}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{model\PYZus{}sk}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{columns}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{model\PYZus{}sk}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model coefficients comparison}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_150_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2\PYZhy{}norm of weights:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:10s\PYZcb{}}\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No reg:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{model\PYZus{}homegrown}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:10s\PYZcb{}}\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L2:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:10s\PYZcb{}}\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L1:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l1}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2-norm of weights:
+
+No reg:   26.86
+L2:       10.92
+L1:       15.43
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of non\PYZhy{}zero coefficients:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:10s\PYZcb{}}\PY{l+s+si}{\PYZob{}:d\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No reg:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{model\PYZus{}homegrown}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:10s\PYZcb{}}\PY{l+s+si}{\PYZob{}:d\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L2:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:10s\PYZcb{}}\PY{l+s+si}{\PYZob{}:d\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L1:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{model\PYZus{}homegrown\PYZus{}regularized\PYZus{}l1}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of non-zero coefficients:
+
+No reg:   13
+L2:       13
+L1:       5
+
+    \end{Verbatim}
+
+    As one can notice L2-regularization greatly reduces the 2-norm of weight
+vector thereby it prevents overfitting. Regularization constant can be
+used to control
+\href{http://scott.fortmann-roe.com/docs/BiasVariance.html}{bias-variance
+tradeoff}.
+
+L1-regularization plays the same role but it also has one very important
+prorepty: it can work as a feature selector (impose sparsity on the
+coefficient vector). From mathematical perspective it can be explained
+as follows: L1-norm is the "closest" approximation to the L0-norm which
+explicitly equals to the number of non-zero elements. For sure, the
+ideal feature selector is L0-norm but one can not simply minimize it
+because of its computationally intractability (due to its combinatorial
+nature). Thus people usually use L1-norm for that purpose. More
+intuitive geometrical interpretation can be found
+\href{https://www.quora.com/Why-is-L1-regularization-supposed-to-lead-to-sparsity-than-L2}{here}
+or in any other source (lots of them). For more detailed and deep
+mathematical explanation one can take a look into
+\href{https://en.wikipedia.org/wiki/Compressed_sensing}{compressed
+sensing} method introduced by Terence Tao and David Donoho in the early
+2000's.
+
+    \textbf{A couple nice videos by Ritvik Kharkar:}
+
+Ridge regression: https://www.youtube.com/watch?v=5asL5Eq2x0A
+
+Lasso regression: https://www.youtube.com/watch?v=jbwSCwoT51M
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
